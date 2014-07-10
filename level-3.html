@@ -1,0 +1,114 @@
+<html>
+    <head>
+        <title>LearnMaze v. 1.0.0</title>
+        <link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+        <style>
+            div{
+                font-family: 'Indie Flower', cursive;
+            }
+        </style>
+    </head>
+    <body>
+        <center>
+            <div id = "container" style = "width: 1000px; margin: 0 auto;">
+                <div id = "content" style = "float: left; width: 690px; border-style: solid; border-width: 5px;"></div>
+                <div id = "commands" style = "float: right; width: 300px;">
+                    <div style = 'font-size: 24px'>Command Center</div><br />
+                    <form>
+                        <textarea id = "commandsBox" name = "textbox" style = "width: 250px; height: 150px"></textarea>
+                        <br />
+                        <table>
+                            <tr>
+                                <td>
+                                    <center>
+                                        <button type = "button" onclick = "executeCommand(document.getElementsByName('textbox')[0].value);">Run!</button>
+                                        <br />
+                                        <button type = "button" onclick = "location.reload();">Reset!</button>
+                                    </center>
+                                </td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                            </td>
+                                            <td>
+                                                <button type = "button" onclick = "executeCommand('move(\'up\');');">&#8593;</button>
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <button type = "button" onclick = "executeCommand('move(\'left\');');">&#8592;</button>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                                <button type = "button" onclick = "executeCommand('move(\'right\');');">&#8594;</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                            </td>
+                                            <td>
+                                                <button type = "button" onclick = "executeCommand('move(\'down\');');">&#8595;</button>
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <center>
+                                        <button type = "button" onclick = "executeCommand('pickUp();');">Pick Up</button>
+                                        <br />
+                                        <button type = "button" onclick = "executeCommand('flipSwitch();');">Flip Switch</button>
+                                    </center>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                    <div style = 'font-size: 24px'>Previous Commands</div><br />
+                    <textarea id = "textbox2" style = "width: 250px; height: 150px"></textarea>
+                </div>
+            </div>
+            <div id = "footer" style = "clear:both;">
+                <br />
+                Code and Concept by Zachary Daniels
+                <br />
+                Art by <a href = "http://www.kenney.nl">Kenney</a>
+            </div>
+        </center>
+    </body>
+    <script type = "text/javascript" src = "http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type = "text/javascript" src = "js/character.js"></script>
+    <script type = "text/javascript" src = "js/board.js"></script>
+    <script type = "text/javascript" src = "js/game.js"></script>
+    <script type = "text/javascript" src = "js/renderer.js"></script>
+    <script type = "text/javascript" src = "js/actions.js"></script>
+    <script type = "text/javascript" src = "levels/3.js"></script>
+    <script type = "text/javascript">
+        $(document).delegate('#commandsBox', 'keydown', function(e) {
+            var keyCode = e.keyCode || e.which;
+
+            if (keyCode == 9) {
+                e.preventDefault();
+                var start = $(this).get(0).selectionStart;
+                var end = $(this).get(0).selectionEnd;
+
+                // set textarea value to: text before caret + tab + text after caret
+                $(this).val($(this).val().substring(0, start)
+                            + "\t"
+                            + $(this).val().substring(end));
+
+                // put caret at right position again
+                $(this).get(0).selectionStart =
+                    $(this).get(0).selectionEnd = start + 1;
+            }
+        });
+        function executeCommand(commands){
+            eval(commands);
+            $("textarea#textbox2").append(commands + "\n");
+        }
+    </script>
+</html>

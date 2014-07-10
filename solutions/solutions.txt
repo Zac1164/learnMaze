@@ -1,0 +1,308 @@
+/*
+NOTE: These are only sample solutions. There are many (an infinite) number of possible solutions.
+*/
+
+//LEVEL 1
+
+while(!isComplete()){
+	move("down");
+}
+
+//LEVEL 2
+
+while(!isWall("down")){
+	move("down");
+}
+while(!isComplete()){
+	move("right");
+}
+
+//LEVEL 3
+
+while(!isComplete()){
+	if(examine() === "key"){
+		pickUp();
+	}
+	move("down");
+}
+
+//LEVEL 4
+
+while(!isComplete()){
+	if(examine() === "switch"){
+		if(!isSwitchOn()){
+			flipSwitch();
+		}
+	}
+	move("down");
+}
+
+//LEVEL 5
+
+while(!isComplete()){
+  var itemType = examine();
+	if(itemType === "switch"){
+		if(!isSwitchOn()){
+			flipSwitch();
+		}
+	}
+  else if(itemType === "key"){
+    pickUp();
+  }
+	move("down");
+}
+
+//LEVEL 6
+
+while(!isComplete()){
+	if(examine() === "switch"){
+		if(!isSwitchOn()){
+			flipSwitch();
+		}
+	}
+	move("down");
+}
+
+//LEVEL 7
+
+move("left");
+while(!isWall("down")){
+	move("down");
+}
+while(!isComplete()){
+	move("right");
+}
+
+//LEVEL 8
+
+while(isDangerous("down")){
+	move("right");
+}
+while(!isDangerous("down")){
+	move("down");
+}
+for(var i = 0; i < 2; i++){
+	move("left");
+}
+move("down");
+pickUp();
+move("left");
+while(!isWall("down")){
+	move("down");
+}
+while(!isComplete()){
+	move("right");
+}
+
+//LEVEL 9
+
+while(!isDangerous("down")){
+	move("down");
+}
+while(!isWall("right")){
+	move("right");
+}
+move("down");
+
+//LEVEL 10
+
+function grab(){
+  if(examine() === "key" || examine() === "coin"){
+		pickUp();
+	}
+}
+
+while(!isDangerous("down")){
+	move("down");
+}
+move("right");
+while(isWall("up")){
+	grab();
+	move("down");
+	grab();
+	move("right");
+	grab();
+	move("up");
+	grab();
+	move("right");
+}
+grab();
+move("down");
+while(!isWall("up")){
+	grab();
+	move("up");
+}
+grab();
+while(!isWall("left")){
+	grab();
+	move("left");
+}
+
+//LEVEL 11
+
+function grab(){
+  if(examine() === "key" || examine() === "coin"){
+		pickUp();
+	}
+}
+
+while(!isDangerous("down")){
+	move("down");
+}
+move("right");
+while(isWall("up")){
+	grab();
+	move("down");
+	grab();
+	move("right");
+	grab();
+	move("up");
+	grab();
+	move("right");
+}
+grab();
+move("down");
+while(!isWall("up")){
+	grab();
+	move("up");
+}
+grab();
+while(!isWall("left")){
+	grab();
+	move("left");
+}
+
+//LEVEL 12
+
+function manipulateItem(){
+  var item = examine();
+  if(item === "key" || item === "coin"){
+		pickUp();
+	}
+  else if(item === "switch"){
+    if(!isSwitchOn()){
+      flipSwitch();
+    }
+  }
+}
+
+while(!isDangerous("down")){
+	move("down");
+}
+move("right");
+while(isWall("up")){
+	manipulateItem();
+	move("down");
+	manipulateItem();
+	move("right");
+	manipulateItem();
+	move("up");
+	manipulateItem();
+	move("right");
+}
+manipulateItem();
+move("down");
+while(!isWall("up")){
+	manipulateItem();
+	move("up");
+}
+manipulateItem();
+while(!isWall("left")){
+	manipulateItem();
+	move("left");
+}
+
+//LEVEL 13
+
+function manipulateItem(){
+  var item = examine();
+  if(item === "key" || item === "coin"){
+		pickUp();
+	}
+  else if(item === "switch"){
+    if(!isSwitchOn()){
+      flipSwitch();
+    }
+  }
+}
+
+while(!isDangerous("down")){
+	move("down");
+}
+move("right");
+while(isWall("up")){
+	manipulateItem();
+	move("down");
+	manipulateItem();
+	move("right");
+	manipulateItem();
+	move("up");
+	manipulateItem();
+	move("right");
+}
+manipulateItem();
+move("down");
+while(!isWall("up")){
+	manipulateItem();
+	move("up");
+}
+manipulateItem();
+while(!isWall("left")){
+	manipulateItem();
+	move("left");
+}
+
+//LEVEL 14
+
+function manipulateItem(){
+  var item = examine();
+  if(item === "key" || item === "coin"){
+		pickUp();
+	}
+  else if(item === "switch"){
+    if(!isSwitchOn()){
+      flipSwitch();
+    }
+  }
+}
+
+while(!isDangerous("down")){
+	move("down");
+}
+move("right");
+while(isWall("up")){
+	manipulateItem();
+	move("down");
+	manipulateItem();
+	move("right");
+	manipulateItem();
+	move("up");
+	manipulateItem();
+	move("right");
+}
+manipulateItem();
+move("down");
+while(!isWall("up")){
+	manipulateItem();
+	move("up");
+}
+manipulateItem();
+while(!isWall("left")){
+	manipulateItem();
+	move("left");
+}
+move("down");
+while(isDangerous("right")){
+  move("down");
+}
+while(!isWall("right") && !isComplete()){
+  move("right");
+}
+move("down");
+while(!isWall("left") && !isComplete()){
+  move("left");
+}
+move("down");
+while(!isWall("right") && !isComplete()){
+  move("right");
+}

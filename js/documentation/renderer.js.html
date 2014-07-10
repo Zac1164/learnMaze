@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: renderer.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: renderer.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Renders maze
+ * @class Renderer
+ */
+Renderer = function() {
+};
+
+/**
+ * Set game
+ * @param {Game} game Game information
+ */
+Renderer.prototype.setGame = function(game) {
+  this.game = game;
+  //Default: Hide danger zones
+  this.dangerFlag = false;
+};
+
+/**
+ * Get character sprite
+ * @returns {string} URL for character sprite
+ */
+Renderer.prototype.getCharacterSprite = function() {
+  var character = this.game.character.getSprite();
+  if (character === "blue"){
+    return "imgs/characters/blue.png";
+  }
+  else if(character === "green"){
+    return "imgs/characters/green.png";
+  }
+  else if(character === "pink"){
+    return "imgs/characters/pink.png";
+  }
+};
+
+/**
+ * Get object at location
+ * @param {int} x x-position
+ * @param {int} y y-position
+ * @returns {string} URL for object sprite
+ */
+Renderer.prototype.getObject = function(x,y) {
+  var etype = this.game.board.getObject(x,y);
+  if(etype === "key"){
+    return "imgs/obstacles/key.png";
+  }
+  else if(etype === "switchOff"){
+    return "imgs/obstacles/switchOff.png";
+  }
+  else if(etype === "switchOn"){
+    return "imgs/obstacles/switchOn.png";
+  }
+  else if(etype === "gold"){
+    return "imgs/obstacles/coinGold.png";
+  }
+  else if(etype === "silver"){
+    return "imgs/obstacles/coinSilver.png";
+  }
+  else if(etype === "bronze"){
+    return "imgs/obstacles/coinBronze.png";
+  }
+  else if(etype === "bomb"){
+    return "imgs/obstacles/bomb.png";
+  }
+  else if(etype === "block"){
+    return "imgs/enemies/block.png";
+  }
+  else if(etype === "fly"){
+    return "imgs/enemies/fly.png";
+  }
+  else if(etype === "slime"){
+    return "imgs/enemies/slime.png";
+  }
+  else if(etype === "wall"){
+    return "imgs/tiles/box.png";
+  }
+  else if(etype === "goal"){
+    return "imgs/obstacles/goal.png";
+  }
+  else{
+    return "";
+  }
+};
+
+/**
+ * Show danger zones
+ * @param {boolean} flag Flag to show or hide danger zones
+*/
+Renderer.prototype.showDangerZones = function(flag) {
+  this.dangerFlag = flag;
+};
+
+/**
+ * Render maze
+ */
+Renderer.prototype.render = function() {
+  var characterX = this.game.character.getX();
+  var characterY = this.game.character.getY();
+  this.game.board.calculateDangerZones();
+  var code = "&lt;center>&lt;div style = 'font-size: 24px'>LearnMaze v. 1.0.0&lt;/div>&lt;br />&lt;table>";
+  var status = "Alive";
+  if(game.isDead()){
+    status = "Dead";
+  }
+  else if(game.isComplete()){
+    status = "Complete";
+  }
+  for(var i = 0; i &lt; this.game.board.getHeight(); i++){
+    code += "&lt;tr>"
+    for(var j = 0; j &lt; this.game.board.getWidth(); j++){
+      var mazeObject = this.getObject(j,i)
+      code += "&lt;td valign='middle' style = ' height:32px; width: 32px; background-repeat: no-repeat;background-size: 32px 32px; background-image:url("
+      if(j === characterX &amp;&amp; i === characterY){
+        if(status === "Dead"){
+          code += "imgs/tiles/dead.png)'>";
+        }
+        else if(status === "Complete"){
+          code += "imgs/tiles/win.png)'>";
+        }
+        else{
+          code += this.getCharacterSprite() + ")'>";
+        }
+      }
+      else if(mazeObject !== ""){
+        code += mazeObject + ")'>";
+      }
+      else if(this.dangerFlag &amp;&amp; this.game.board.isDangerous(j,i)){
+        code += "imgs/tiles/danger.png)'>";
+      }
+      else{
+        code += "imgs/tiles/tile.png)'>";
+      }
+      var stepNum = game.board.getStepNum(j,i);
+      if(stepNum !== -1){
+        code += "&lt;center>" + stepNum + "&lt;/center>";
+      }
+      code += "&lt;/td>";
+    }
+    code += "&lt;/tr>";
+  }
+  code += "&lt;/table>";
+  $("div#content").empty();
+  $("div#content").html(code + "&lt;br />&lt;div>Status: " + status + "&lt;br />Number of Moves: " + game.getNumMoves() + "&lt;br />Switches: " + game.board.getSwitchesOn() + "/" + game.board.getNumSwitches() + "&lt;br />Keys: " + game.getNumKeys() + "/" + game.board.getNumKeys() + "&lt;br />Coins: " + game.getCoinValue() + "&lt;/div>&lt;/center>");
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Board.html">Board</a></li><li><a href="Character.html">Character</a></li><li><a href="Game.html">Game</a></li><li><a href="Renderer.html">Renderer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#examine">examine</a></li><li><a href="global.html#flipSwitch">flipSwitch</a></li><li><a href="global.html#isComplete">isComplete</a></li><li><a href="global.html#isDangerous">isDangerous</a></li><li><a href="global.html#isSwitchOn">isSwitchOn</a></li><li><a href="global.html#isWall">isWall</a></li><li><a href="global.html#move">move</a></li><li><a href="global.html#pickUp">pickUp</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-dev</a> on Sun Jun 22 2014 18:20:39 GMT-0400 (EDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
