@@ -16,17 +16,11 @@
                 <form>
                     <textarea id = "commandsBox" name = "textbox" style = "width: 80%; height: 80%"></textarea>
                     <br />
-                    <table>
-                        <tr>
-                            <td>
-                                <center>
-                                    <button type = "button" onclick = "executeCommand(document.getElementsByName('textbox')[0].value);">Run!</button>
-                                    <br />
-                                    <button type = "button" onclick = "location.reload();">Reset!</button>
-                                </center>
-                            </td>
-                        </tr>
-                    </table>
+                    <center>
+                            <button type = "button" onclick = "executeCommand(document.getElementsByName('textbox')[0].value);">Run!</button>
+                            <br />
+                         <button type = "button" onclick = "location.reload();">Reset!</button>
+                    </center>
                 </form>
             </div>
         </center>
